@@ -1,0 +1,1471 @@
+
+=======================================================
+practical example on calculation of general parameters (annual owner hours=150;
+annual charter hours=0;fuel cost per gallon this can be edited=4.25;net effective hourly charter rate rename=0;
+total hours=150)load default and copy hour fuel cost.
+owner hourly cost analysis(fuel usage(gallons per hour)=18.90;
+fuel cost per hour=80.33;
+fuel cost per gallon this can be edited=4.25;
+airtime maintenance=33.15;
+engine/APU maintenance=33.13;
+total maintenance=66.28;
+crew miscellaneous this can be edited=5.00;
+total variable cost per hours=151.61;
+total fixed cost with without charter=557.04;
+total fixed cost with charter=557.04;
+total hourly cost without charter=708.65;
+total hourly cost without charter=708.65)
+Annual budgets:
+(annual owner hours=150;
+annual budegt=106297.49;
+Per Month include the list below
+monthly hours=13;
+monthly budget=8858.12)
+
+
+annual variable costs:
+(fuel gallons=2835.00;
+fuel cost=12048.75;
+airframe maintenance=4972.50;
+engine/APU Maintenance=4969.50;
+crew miscellaneous=750.00;
+total variable cost=22740.75)
+
+annual fixed costs:
+(crew expense=0.00 ;
+crew training=3000.00;
+hanger=13500.00;
+insurance can be edited=5596.50;
+aircraft miscellaneous can be edited=4700.00;
+management and marketing fee can be renamed=0.00;
+payment and capital cost=24298.83;
+original aircraft cost=700000.00;
+annual residual depreciation(%)=5;
+term of ownership =4;
+average residual depreciation per year=32461.41;
+total fixed cost without charter=83556.74;
+net charter profit contribution=0.00;
+total fixed cost with charter=83556.74)
+
+Add input elements specific to
+charter revenue and profit with dash library
+charter revenue and profit
+(charter revenue=0.00;
+variable cost of charter can be edited=0.00;
+net charter profit contribution=0.00)
+Notes should have a portion to comment like a box
+and Save Session to save the Notes of the comment
+Aircraft in this Session button should consist of different
+types of Aircraft
+cirrius SR22T G5GTS and must have Add aircraft to Session with 
+Save Session button and Remove Button and the Aircraft saved
+(Typical Passenger Capacity with two boxes with the first box=1
+and second box=3,
+Seats full Range(Nm/Sm) can be renamed and it comes with
+two boxes with the first box=750 and the second box=863,
+Normal Cruise(Kts/Mph) can be renamed and it comes with two
+boxes with the first box=195.95 and the second box=225.53;
+average Pre-Owned Price=705000;
+Cost Per NM=0.77)
+
+payment schedule:
+(one must be able to select between Payment Schedule and Capital Cost
+in which one has the following
+Interest Rate(%)=4;
+Payment Period=Weekly,Monthly or Yearly;
+Term of Loan(Months)=120;
+Loan=200000.00;
+Monthly Lease=0.00;
+Payment per period=2024.90;
+period number can be chang=0;
+Principal Amount=1353.72;
+Interest Amount=671.18)
+Add input elements specific to
+Budget By Percentages with dash library
+Budget By Percentages(
+Fuel Cost(%)=11.33;
+Airframe Maintenance=4.68;
+Engine/APU Maintenance(%)=4.68;
+Crew Expense(%)=0.00;
+Crew Training(%)=2.82;
+Hanger(%)=12.70;
+Insurance(%)=5.26;
+Aircraft Miscellaneous(%)=4.42;
+Mgmt./Mkting. Fee(%)=0.00;
+Payment/Capital Cost(%)=22.86;
+Avg. Depreciation/Year(%)=30.54;
+Total Percentages(%)=100)
+everything above must be coded with dash library of python
+and machine learning using st metric with css styling and initialize value to respective
+positions and show  dropdown for payment schedule;budget by percentage;
+owner hourly cost analysis;annual fixed costs;
+general parameters;
+charter revenue and profit;
+annual budget;annual variable costs per month and codes the codes must be fully coded
+===================================
+Budget By Percentages include the 
+Fuel Cost(%)=11.33;
+Airframe Maintenance=4.68;
+Engine/APU Maintenance(%)=4.68;
+Crew Expense(%)=0.00;
+Crew Training(%)=2.82;
+Hanger(%)=12.70;
+Insurance(%)=5.26;
+Aircraft Miscellaneous(%)=4.42;
+Mgmt./Mkting. Fee(%)=0.00;
+Payment/Capital Cost(%)=22.86;
+Avg. Depreciation/Year(%)=30.54;
+Total Percentages(%)=100;
+everything above must be coded with dash library of python
+and machine learning using metrics with css styling and initialize value to respective
+positions and calculate it in the sidebar
+========================================
+if st.button("Add Aircraft to Session"):
+    st.session_state.aircraft_list.append(aircraft_list)
+
+if st.button("Remove Aircraft"):
+    if st.session_state.aircraft_list:
+        st.session_state.aircraft_list.pop()
+
+st.sidebar.header("Aircraft Saved in Session")
+for aircraft in st.session_state.aircraft_list:
+    st.sidebar.write(aircraft)
+===================================================
+import streamlit as st
+
+Define initial values for parameters
+annual_owner_hours = 150
+annual_charter_hours = 0
+fuel_cost_per_gallon = 4.25
+net_effective_hourly_charter_rate = 0
+total_hours = 150
+fuel_usage_gph = 18.90
+fuel_cost_per_hour = 80.33
+airtime_maintenance = 33.15
+engine_apu_maintenance = 33.13
+crew_miscellaneous = 5.00
+
+
+st.sidebar.header("Input Parameters")
+annual_owner_hours = st.sidebar.number_input("Annual Owner Hours", value=annual_owner_hours)
+annual_charter_hours = st.sidebar.number_input("Annual Charter Hours", value=annual_charter_hours)
+fuel_cost_per_gallon = st.sidebar.number_input("Fuel Cost per Gallon", value=fuel_cost_per_gallon)
+net_effective_hourly_charter_rate = st.sidebar.number_input("Net Effective Hourly Charter Rate", value=net_effective_hourly_charter_rate)
+total_hours = st.sidebar.number_input("Total Hours", value=total_hours)
+fuel_usage_gph = st.sidebar.number_input("Fuel Usage (Gallons per Hour)", value=fuel_usage_gph)
+fuel_cost_per_hour = st.sidebar.number_input("Fuel Cost per Hour", value=fuel_cost_per_hour)
+airtime_maintenance = st.sidebar.number_input("Airtime Maintenance", value=airtime_maintenance)
+engine_apu_maintenance = st.sidebar.number_input("Engine/APU Maintenance", value=engine_apu_maintenance)
+crew_miscellaneous = st.sidebar.number_input("Crew Miscellaneous", value=crew_miscellaneous)
+
+Calculate owner hourly cost
+owner_hourly_cost = (fuel_cost_per_hour * fuel_usage_gph +
+                     airtime_maintenance + engine_apu_maintenance +
+                     crew_miscellaneous)
+
+Display owner hourly cost
+st.header("Owner Hourly Cost Analysis")
+st.write(f"Owner Hourly Cost: ${owner_hourly_cost:.2f} per hour")
+
+Create a section for annual budgets
+st.header("Annual Budgets")
+annual_budget = annual_owner_hours * owner_hourly_cost
+st.write(f"Annual Budget: ${annual_budget:.2f}")
+
+Create a section for per-month values
+monthly_hours = total_hours / 12
+monthly_budget = annual_budget / 12
+st.header("Per Month")
+st.write(f"Monthly Hours: {monthly_hours:.2f}")
+st.write(f"Monthly Budget: ${monthly_budget:.2f}")
+
+You can continue to add more sections for other calculations and features
+
+Save Session and Notes
+st.sidebar.header("Session and Notes")
+notes = st.sidebar.text_area("Notes")
+if st.sidebar.button("Save Session"):
+    Save session data and notes
+    You can implement this functionality using a database or file storage
+
+Add Aircraft to Session
+    st.sidebar.header("Aircraft in This Session")
+selected_aircraft = st.sidebar.selectbox("Select Aircraft", ["Cirrus SR22T G5GTS"])
+if st.sidebar.button("Add Aircraft to Session"):
+    Add selected aircraft to the session
+    You can maintain a list of selected aircraft and display them
+
+ Budget By Percentages
+    st.sidebar.header("Budget By Percentages")
+Create input fields or sliders for budget percentages
+Calculate and display total percentages
+
+ Machine Learning Metrics
+st.header("Machine Learning Metrics")
+You can add machine learning metrics and visualizations here
+
+CSS Styling
+st.markdown(
+    """
+    <style>
+    /* Add your CSS styling here */
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+=======================================================
+import streamlit as st
+
+# Initialize default values
+annual_owner_hours = 150
+annual_charter_hours = 0
+fuel_cost_per_gallon = 4.25
+net_effective_hourly_charter_rate = 0
+total_hours = 150
+fuel_usage_gph = 18.90
+fuel_cost_per_hour = 80.33
+airtime_maintenance = 33.15
+engine_apu_maintenance = 33.13
+crew_miscellaneous = 5.00
+        
+    #st.title('Some content')  
+        # st.title("Aircraft Cost Calculator")
+logo_image = st.sidebar.image("logo1.jpg", use_column_width=True)
+
+# Create a Streamlit sidebar for user input
+st.sidebar.header("Input Parameters")
+annual_owner_hours = st.sidebar.number_input("Annual Owner Hours", annual_owner_hours)
+annual_charter_hours = st.sidebar.number_input("Annual Charter Hours", annual_charter_hours)
+fuel_cost_per_gallon = st.sidebar.number_input("Fuel Cost per Gallon", fuel_cost_per_gallon)
+net_effective_hourly_charter_rate = st.sidebar.number_input("Net Effective Hourly Charter Rate", net_effective_hourly_charter_rate)
+total_hours = st.sidebar.number_input("Total Hours", total_hours)
+fuel_usage_gph = st.sidebar.number_input("Fuel Usage (Gallons per Hour)", fuel_usage_gph)
+fuel_cost_per_hour = st.sidebar.number_input("Fuel Cost per Hour", fuel_cost_per_hour)
+airtime_maintenance = st.sidebar.number_input("Airtime Maintenance", airtime_maintenance)
+engine_apu_maintenance = st.sidebar.number_input("Engine/APU Maintenance", engine_apu_maintenance)
+crew_miscellaneous = st.sidebar.number_input("Crew Miscellaneous", crew_miscellaneous)
+
+# Calculate owner hourly cost
+owner_hourly_cost = (fuel_cost_per_hour * fuel_usage_gph +
+                     airtime_maintenance + engine_apu_maintenance +
+                     crew_miscellaneous)
+
+# Display owner hourly cost
+st.header("Owner Hourly Cost Analysis")
+st.write(f"Owner Hourly Cost: ${owner_hourly_cost:.2f} per hour")
+
+# Calculate annual budget
+annual_budget = annual_owner_hours * owner_hourly_cost
+
+# Calculate per-month values
+monthly_hours = total_hours / 12
+monthly_budget = annual_budget / 12
+
+# Display annual and monthly values
+st.header("Annual Budgets")
+st.write(f"Annual Budget: ${annual_budget:.2f}")
+
+st.header("Per Month")
+st.write(f"Monthly Hours: {monthly_hours:.2f}")
+st.write(f"Monthly Budget: ${monthly_budget:.2f}")
+
+# Aircraft selection and display
+st.sidebar.header("Aircraft in This Session")
+aircraft_selection = st.sidebar.selectbox("Select Aircraft", ["Cirrus SR22T G5GTS"])
+
+# Display aircraft information
+st.header("Selected Aircraft")
+if aircraft_selection == "Cirrus SR22T G5GTS":
+    st.write("Typical Passenger Capacity: 1 - 3")
+    st.write("Seats Full Range (Nm/Sm): 750 - 863")
+    st.write("Normal Cruise (Kts/Mph): 195.95 - 225.53")
+    st.write("Average Pre-Owned Price: $705,000")
+    st.write("Cost Per NM: $0.77")
+
+# Save Session and Notes
+st.sidebar.header("Session and Notes")
+notes = st.sidebar.text_area("Notes")
+if st.sidebar.button("Save Session"):
+    # Save session data and notes (you can implement this functionality)
+
+# Payment schedule and calculations
+    st.sidebar.header("Payment Schedule")
+interest_rate = st.sidebar.number_input("Interest Rate (%)", 4.0)
+payment_period = st.sidebar.selectbox("Payment Period", ["Weekly", "Monthly", "Yearly"])
+term_of_loan_months = st.sidebar.number_input("Term of Loan (Months)", 120)
+loan_amount = st.sidebar.number_input("Loan Amount", 200000.0)
+monthly_lease = st.sidebar.number_input("Monthly Lease", 0.0)
+
+# Calculate payment per period, principal amount, and interest amount
+if payment_period == "Weekly":
+    num_periods = term_of_loan_months * 12 / 52
+else:
+    num_periods = term_of_loan_months * 12
+
+if interest_rate > 0:
+    monthly_interest_rate = (interest_rate / 100) / 12
+    payment_per_period = (loan_amount * monthly_interest_rate) / (1 - (1 + monthly_interest_rate) ** -num_periods)
+else:
+    payment_per_period = loan_amount / num_periods
+
+principal_amount = payment_per_period - (monthly_lease / 12)
+interest_amount = payment_per_period - principal_amount
+
+# Display payment schedule
+st.header("Payment Schedule")
+st.write(f"Payment per Period: ${payment_per_period:.2f}")
+st.write(f"Principal Amount: ${principal_amount:.2f}")
+st.write(f"Interest Amount: ${interest_amount:.2f}")
+
+ Budget By Percentages
+st.sidebar.header("Budget By Percentages")
+ Create input fields or sliders for budget percentages
+ Calculate and display total percentages
+ Initialize Values
+budget_items = {
+    "Fuel Cost (%)": 11.33,
+    "Airframe Maintenance (%)": 4.68,
+    "Engine/APU Maintenance (%)": 4.68,
+    "Crew Expense (%)": 0.00,
+    "Crew Training (%)": 2.82,
+    "Hanger (%)": 12.70,
+    "Insurance (%)": 5.26,
+    "Aircraft Miscellaneous (%)": 4.42,
+    "Mgmt./Mkting. Fee (%)": 0.00,
+    "Payment/Capital Cost (%)": 22.86,
+    "Avg. Depreciation/Year (%)": 30.54,
+}
+
+st.sidebar.header("Budget Percentages")
+
+ Create sliders in the sidebar to adjust percentages
+for item, value in budget_items.items():
+    budget_items[item] = st.sidebar.slider(item, 0.0, 100.0, value)
+
+# Calculate Total
+total_percentages = sum(budget_items.values())
+
+# Display Results
+st.sidebar.markdown(f"Total Percentages (%) = {total_percentages:.2f}")
+
+# Check if the total percentages sum to 100%
+if total_percentages != 100.0:
+    st.sidebar.warning("Total percentages do not sum to 100%!")
+else:
+    st.sidebar.success("Total percentages sum to 100%")
+
+# You can add further analysis or machine learning models here if needed
+# Machine Learning Metrics
+st.header("")
+# You can add machine learning metrics and visualizations here
+
+# CSS Styling
+st.markdown(
+    """
+    <style>
+    /* Add your CSS styling here */
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+=====================================================
+import streamlit as st
+
+# Define default values for parameters
+annual_owner_hours = 150
+annual_charter_hours = 0
+fuel_cost_per_gallon = 4.25
+net_effective_hourly_charter_rate = 0
+total_hours = annual_owner_hours + annual_charter_hours
+
+# Sidebar for aircraft selection
+selected_aircraft = st.sidebar.selectbox("Select Aircraft", ["Cirrus SR22T G5GTS", "Other Aircraft"])
+
+# Dropdown for different sections
+selected_section = st.sidebar.selectbox(
+    "Select Section",
+    ["General Parameters", "Owner Hourly Cost Analysis", "Annual Budgets", "Annual Variable Costs", "Annual Fixed Costs", "Charter Revenue and Profit"]
+)
+
+# General Parameters
+if selected_section == "General Parameters":
+    st.header("General Parameters")
+    annual_owner_hours = st.number_input("Annual Owner Hours", value=annual_owner_hours)
+    annual_charter_hours = st.number_input("Annual Charter Hours", value=annual_charter_hours)
+    fuel_cost_per_gallon = st.number_input("Fuel Cost per Gallon", value=fuel_cost_per_gallon)
+    net_effective_hourly_charter_rate = st.number_input("Net Effective Hourly Charter Rate", value=net_effective_hourly_charter_rate)
+    total_hours = annual_owner_hours + annual_charter_hours
+
+# Owner Hourly Cost Analysis
+elif selected_section == "Owner Hourly Cost Analysis":
+    st.header("Owner Hourly Cost Analysis")
+    # Add input elements for fuel usage, maintenance costs, crew miscellaneous, etc.
+
+# Annual Budgets
+elif selected_section == "Annual Budgets":
+    st.header("Annual Budgets")
+    # Add input elements for annual budgets like monthly hours and budget.
+
+# Annual Variable Costs
+elif selected_section == "Annual Variable Costs":
+    st.header("Annual Variable Costs")
+    # Add input elements for annual variable costs like fuel gallons, maintenance costs, crew miscellaneous, etc.
+
+# Annual Fixed Costs
+elif selected_section == "Annual Fixed Costs":
+    st.header("Annual Fixed Costs")
+    # Add input elements for annual fixed costs like crew expense, insurance, management fees, etc.
+
+# Annual Fixed Costs
+st.header("Annual Fixed Costs")
+
+# Define input elements for each fixed cost category
+crew_expense = st.number_input("Crew Expense", value=0.00)
+crew_training = st.number_input("Crew Training", value=3000.00)
+hanger = st.number_input("Hanger", value=13500.00)
+insurance = st.number_input("Insurance", value=5596.50)
+aircraft_miscellaneous = st.number_input("Aircraft Miscellaneous", value=4700.00)
+mgmt_marketing_fee = st.number_input("Mgmt./Mkting. Fee", value=0.00)
+payment_and_capital_cost = st.number_input("Payment and Capital Cost", value=24298.83)
+original_aircraft_cost = st.number_input("Original Aircraft Cost", value=700000.00)
+annual_residual_depreciation_percentage = st.number_input("Annual Residual Depreciation(%)", min_value=0.0, max_value=100.0, value=5.0, step=0.01)
+term_of_ownership = st.number_input("Term of Ownership", min_value=1, value=4)
+average_residual_depreciation_per_year = st.number_input("Average Residual Depreciation per Year", value=32461.41)
+
+# Calculate total fixed cost without and with charter
+total_fixed_cost_without_charter = (
+    crew_expense + crew_training + hanger + insurance +
+    aircraft_miscellaneous + mgmt_marketing_fee +
+    payment_and_capital_cost +
+    (original_aircraft_cost * (annual_residual_depreciation_percentage / 100.0))
+)
+
+net_charter_profit_contribution = 0.00  # You can add the calculation for this based on your specific formula
+
+total_fixed_cost_with_charter = total_fixed_cost_without_charter  # You can update this based on your specific formula
+
+# Display total fixed costs
+st.write(f"Total Fixed Cost Without Charter: {total_fixed_cost_without_charter}")
+st.write(f"Total Fixed Cost With Charter: {total_fixed_cost_with_charter}")
+st.write(f"Net Charter Profit Contribution: {net_charter_profit_contribution}")
+
+# You can use the input values for further calculations or display them as needed.
+
+# Charter Revenue and Profit
+elif selected_section == "Charter Revenue and Profit":
+st.header("Charter Revenue and Profit")
+    # Add input elements for charter revenue and variable costs of charter.
+
+# Charter Revenue and Profit
+st.header("Charter Revenue and Profit")
+
+# Define input elements for each charter-related category
+charter_revenue = st.number_input("Charter Revenue", value=0.00)
+variable_cost_of_charter = st.number_input("Variable Cost of Charter", value=0.00)
+
+# Calculate net charter profit contribution
+net_charter_profit_contribution = charter_revenue - variable_cost_of_charter
+
+# Display charter-related values
+st.write(f"Charter Revenue: {charter_revenue}")
+st.write(f"Variable Cost of Charter: {variable_cost_of_charter}")
+st.write(f"Net Charter Profit Contribution: {net_charter_profit_contribution}")
+
+# You can use the input values for further calculations or display them as needed.
+
+# CSS Styling
+# You can add CSS styling to elements using Streamlit's st.markdown or st.write
+
+# Save Session
+if st.button("Save Session"):
+    # Save the current session data, including selected aircraft and parameter values
+
+# Aircraft Session Management
+        st.sidebar.header("Aircraft in this Session")
+# Add a list of aircraft saved in the session
+# Add buttons to add and remove aircraft from the session
+
+# Payment Schedule and Budget By Percentages
+if selected_section in ["Payment Schedule", "Budget By Percentages"]:
+        st.header(selected_section)
+    # Add input elements specific to Payment Schedule or Budget By Percentages.
+
+# Budget By Percentages
+
+    # Define input elements for each budget category
+fuel_cost_percentage = st.number_input("Fuel Cost(%)", min_value=0.0, max_value=100.0, value=11.33, step=0.01)
+airframe_maintenance_percentage = st.number_input("Airframe Maintenance(%)", min_value=0.0, max_value=100.0, value=4.68, step=0.01)
+engine_apu_maintenance_percentage = st.number_input("Engine/APU Maintenance(%)", min_value=0.0, max_value=100.0, value=4.68, step=0.01)
+crew_expense_percentage = st.number_input("Crew Expense(%)", min_value=0.0, max_value=100.0, value=0.0, step=0.01)
+crew_training_percentage = st.number_input("Crew Training(%)", min_value=0.0, max_value=100.0, value=2.82, step=0.01)
+hanger_percentage = st.number_input("Hanger(%)", min_value=0.0, max_value=100.0, value=12.70, step=0.01)
+insurance_percentage = st.number_input("Insurance(%)", min_value=0.0, max_value=100.0, value=5.26, step=0.01)
+aircraft_miscellaneous_percentage = st.number_input("Aircraft Miscellaneous(%)", min_value=0.0, max_value=100.0, value=4.42, step=0.01)
+mgmt_marketing_fee_percentage = st.number_input("Mgmt./Mkting. Fee(%)", min_value=0.0, max_value=100.0, value=0.0, step=0.01)
+payment_capital_cost_percentage = st.number_input("Payment/Capital Cost(%)", min_value=0.0, max_value=100.0, value=22.86, step=0.01)
+avg_depreciation_percentage = st.number_input("Avg. Depreciation/Year(%)", min_value=0.0, max_value=100.0, value=30.54, step=0.01)
+
+# Calculate total percentage to ensure it sums up to 100%
+total_percentage = (
+fuel_cost_percentage + airframe_maintenance_percentage + engine_apu_maintenance_percentage +
+crew_expense_percentage + crew_training_percentage + hanger_percentage + insurance_percentage +
+aircraft_miscellaneous_percentage + mgmt_marketing_fee_percentage + payment_capital_cost_percentage +
+avg_depreciation_percentage
+)
+
+# Display total percentage
+st.write(f"Total Percentages(%): {total_percentage}")
+
+# You can use the input values for further calculations or display them as needed.
+
+# Run the Streamlit app
+if __name__ == "__main__":
+    st.title("Aircraft Management App")
+    st.sidebar.title("Aircraft Selection")
+
+    # Add code for different sections and functionalities here
+=======================================================
+import streamlit as st
+import streamlit_authenticator as stauth
+
+
+hashed_passwords = stauth.Hasher(['abc', 'def']).generate()
+#print('Hash_password', hashed_passwords)
+
+#Load yaml
+import yaml
+from yaml.loader import SafeLoader
+with open('./config.yaml') as file:
+    config = yaml.load(file, Loader=SafeLoader)
+
+# Set the background color using custom CSS
+
+
+
+
+authenticator =stauth.Authenticate(
+    config['credentials'],
+    config['cookie']['name'],
+    config['cookie']['key'],
+    config['cookie']['expiry_days'],
+    config['preauthorized']
+)
+
+name, authentication_status, username = authenticator.login('Login', 'main')
+
+# authenticating the user
+if authentication_status:
+    authenticator.logout('Logout', 'sidebar', key='unique_key')
+    st.write(f'Welcome {name}')
+        # st.title("Aircraft Cost Calculator")
+    logo_image = st.sidebar.image("logo1.jpg", use_column_width=True)
+
+    # Define a function to calculate total variable cost per hour
+    def calculate_variable_cost(fuel_cost, oil_changes_cost, engine_reserve):
+        total_variable_cost = fuel_cost + oil_changes_cost
+    
+        if engine_reserve:
+            total_variable_cost += 16.67  # Engine reserve cost
+         
+        return total_variable_cost
+    
+    # Sidebar inputs for operating costs per hour
+    st.sidebar.header("Operating Costs (/hour)")
+    fuel_cost = st.sidebar.number_input("Fuel Cost ($/hour)", value=38.00)
+    oil_changes_cost = st.sidebar.number_input("Oil Changes/Oil Adds Cost ($/hour)", value=3.13)
+    engine_reserve = st.sidebar.checkbox("Engine Reserve")
+
+    # Calculate the total variable cost per hour
+    total_variable_cost_per_hour = calculate_variable_cost(fuel_cost, oil_changes_cost, engine_reserve)
+
+    # Sidebar inputs for ownership costs per year
+    st.sidebar.header("Ownership Costs (/year)")
+    insurance = st.sidebar.number_input("Insurance ($)", value=1200.00)
+    tiedown = st.sidebar.number_input("Hanger/Tiedown ($)", value=600.00)
+    annual_inspection = st.sidebar.number_input("Annual Inspection ($)", value=1500)
+    avionics_subscription = st.sidebar.number_input("Avionics Database Subscriptions ($)", value=500.00)
+    loan_payment = st.sidebar.number_input("Annual Loan Payment ($)", value=3090.50)
+    taxes_registration = st.sidebar.number_input("Annual Taxes and Registration ($)", value=255.00)
+
+    # Calculate the total fixed cost per year
+    total_fixed_cost_per_year = insurance + tiedown + annual_inspection + avionics_subscription + loan_payment + taxes_registration
+
+    # Calculate the fixed cost per month
+    fixed_cost_per_month = total_fixed_cost_per_year / 12
+
+    # Sidebar inputs for rental and break-even
+    st.sidebar.header("Rental and Break-Even")
+    rental_cost_per_hour = st.sidebar.number_input("Rental Cost/HR ($)", value=135.00)
+    breakeven_hours = st.sidebar.number_input("Break Even Hours", value=77)
+
+    # Calculate the total cost to break even
+    total_cost_to_breakeven = breakeven_hours * total_variable_cost_per_hour + total_fixed_cost_per_year
+
+    # Determine if break-even hours are met
+    break_even_hours_met = total_cost_to_breakeven <= total_fixed_cost_per_year
+
+    # Input for intended fly hours
+    intended_fly_hours = st.sidebar.number_input("How many hours do you intend to fly this year?", value=77)
+
+    # Calculate the cost to fly the intended hours
+    cost_to_fly_intended_hours = intended_fly_hours * total_variable_cost_per_hour + total_fixed_cost_per_year
+
+    # Calculate money saved or lost by buying
+    money_saved_or_lost = intended_fly_hours * rental_cost_per_hour - cost_to_fly_intended_hours
+
+    # Display results
+    st.header("Results")
+    st.write(f"Total Variable Cost Per Hour: ${total_variable_cost_per_hour:.2f}")
+    st.write(f"Break Even Hours Met: {break_even_hours_met}")
+    st.write(f"Cost to Fly Intended Hours: ${cost_to_fly_intended_hours:.2f}")
+    st.write(f"Money Saved or Lost by Buying: ${money_saved_or_lost:.2f}")
+
+    # Function to save results to a text file
+    def save_results_to_file():
+        results_text = f"Total Variable Cost Per Hour: ${total_variable_cost_per_hour:.2f}\n"
+        results_text += f"Break Even Hours Met: {break_even_hours_met}\n"
+        results_text += f"Cost to Fly Intended Hours: ${cost_to_fly_intended_hours:.2f}\n"
+        results_text += f"Money Saved or Lost by Buying: ${money_saved_or_lost:.2f}\n"
+        
+        # Save results to a text file
+        with open("Aircraft-D.txt", "w") as file:
+            file.write(results_text)
+
+    # Add a button to download results as a text file
+    if st.button("Download Results as Text"):
+        save_results_to_file()
+        st.success("Results have been downloaded as a text file.")
+  
+elif authentication_status is False:
+    st.error('Username/password is incorrect')
+elif authentication_status is None:
+    st.warning('Please enter your username and password') 
+
+
+
+
+
+
+# Streamlit UI
+#st.set_page_config(
+    #page_title="Aircraft Cost Calculator",
+   # page_icon="✈️",
+   # layout="wide",
+   # initial_sidebar_state="expanded",
+# App title and logo image
+=================================================
+import streamlit as st
+
+# Title
+st.title("Aircraft Cost Calculator")
+
+# General Parameters
+st.header("General Parameters")
+annual_owner_hours = st.number_input("Annual Owner Hours", 0, 10000, 150)
+annual_charter_hours = st.number_input("Annual Charter Hours", 0, 10000, 0)
+fuel_cost_per_gallon = st.number_input("Fuel Cost per Gallon", 0.01, 10.00, 4.25)
+net_effective_hourly_charter_rate = st.number_input("Net Effective Hourly Charter Rate", 0.0, 10000.0, 0.0)
+total_hours = annual_owner_hours + annual_charter_hours
+
+# Owner Hourly Cost Analysis
+st.header("Owner Hourly Cost Analysis")
+fuel_usage_per_hour = st.number_input("Fuel Usage (Gallons per Hour)", 0.01, 100.00, 18.90)
+fuel_cost_per_hour = fuel_cost_per_gallon * fuel_usage_per_hour
+airtime_maintenance = st.number_input("Airtime Maintenance", 0.0, 10000.0, 33.15)
+engine_apu_maintenance = st.number_input("Engine/APU Maintenance", 0.0, 10000.0, 33.13)
+total_maintenance = airtime_maintenance + engine_apu_maintenance
+crew_miscellaneous = st.number_input("Crew Miscellaneous", 0.0, 10000.0, 5.00)
+total_variable_cost_per_hour = fuel_cost_per_hour + total_maintenance + crew_miscellaneous
+
+# Total Fixed Costs
+st.header("Total Fixed Costs")
+total_fixed_cost_with_without_charter = st.number_input("Total Fixed Cost (Without Charter)", 0.0, 1000000.0, 557.04)
+total_fixed_cost_with_charter = st.number_input("Total Fixed Cost (With Charter)", 0.0, 1000000.0, 557.04)
+# Annual Variable Costs
+st.header("Annual Variable Costs")
+fuel_gallons = st.number_input("Fuel Gallons", 0.0, 10000.0, 2835.00)
+fuel_cost = st.number_input("Fuel Cost", 0.0, 100000.0, 12048.75)
+airframe_maintenance = st.number_input("Airframe Maintenance", 0.0, 10000.0, 4972.50)
+engine_apu_maintenance = st.number_input("Engine/APU Maintenance", 0.0, 10000.0, 4969.50)
+crew_miscellaneous = st.number_input("Crew Miscellaneous", 0.0, 10000.0, 750.00)
+total_variable_cost = fuel_cost + airframe_maintenance + engine_apu_maintenance + crew_miscellaneous
+
+# Annual Fixed Costs
+st.header("Annual Fixed Costs")
+crew_expense = st.number_input("Crew Expense", 0.0, 10000.0, 0.00)
+crew_training = st.number_input("Crew Training", 0.0, 10000.0, 3000.00)
+hangar = st.number_input("Hangar", 0.0, 100000.0, 13500.00)
+insurance = st.number_input("Insurance", 0.0, 100000.0, 5596.50)
+aircraft_miscellaneous = st.number_input("Aircraft Miscellaneous", 0.0, 10000.0, 4700.00)
+management_and_marketing_fee = st.number_input("Management and Marketing Fee", 0.0, 10000.0, 0.00)
+payment_and_capital_cost = st.number_input("Payment and Capital Cost", 0.0, 100000.0, 24298.83)
+original_aircraft_cost = st.number_input("Original Aircraft Cost", 0.0, 1000000.0, 700000.00)
+annual_residual_depreciation_percentage = st.number_input("Annual Residual Depreciation (%)", 0.0, 100.0, 5.0)
+term_of_ownership = st.number_input("Term of Ownership (Years)", 1, 100, 4)
+average_residual_depreciation_per_year = (annual_residual_depreciation_percentage / 100) * original_aircraft_cost / term_of_ownership
+total_fixed_cost_without_charter = crew_expense + crew_training + hangar + insurance + aircraft_miscellaneous + management_and_marketing_fee + payment_and_capital_cost + average_residual_depreciation_per_year
+total_fixed_cost_with_charter = total_fixed_cost_without_charter
+# Charter Revenue and Profit
+st.header("Charter Revenue and Profit")
+charter_revenue = st.number_input("Charter Revenue", 0.0, 1000000.0, 0.00)
+variable_cost_of_charter = st.number_input("Variable Cost of Charter", 0.0, 100000.0, 0.00)
+net_charter_profit_contribution = charter_revenue - variable_cost_of_charter
+st.write(f"Net Charter Profit Contribution: ${net_charter_profit_contribution:.2f}")
+# Aircraft Information
+st.header("Aircraft Information")
+
+# Create a list of aircraft types
+aircraft_types = ["Cirrus SR22T G5GTS", "Other Aircraft Type"]
+# Select an aircraft type
+selected_aircraft = st.selectbox("Select Aircraft Type", aircraft_types)
+if selected_aircraft == "Cirrus SR22T G5GTS":
+    # Input elements specific to Cirrus SR22T G5GTS
+    passenger_capacity = st.slider("Typical Passenger Capacity", 1, 10, (1, 3))
+    seats_full_range = st.slider("Seats Full Range (Nm/Sm)", 500, 1000, (750, 863))
+    normal_cruise_speed = st.slider("Normal Cruise Speed (Kts/Mph)", 100, 300, (195.95, 225.53))
+    average_pre_owned_price = st.number_input("Average Pre-Owned Price", 0.0, 1000000.0, 705000.00)
+    cost_per_nm = st.number_input("Cost Per NM", 0.0, 10.0, 0.77)
+    
+# Add functionality to save and remove aircraft
+if st.button("Add Aircraft to Session"):
+    # Save aircraft information to a session variable
+    aircraft_session = {
+        "Aircraft Type": selected_aircraft,
+        "Passenger Capacity": passenger_capacity,
+        "Seats Full Range": seats_full_range,
+        "Normal Cruise Speed": normal_cruise_speed,
+        "Average Pre-Owned Price": average_pre_owned_price,
+        "Cost Per NM": cost_per_nm,
+    }
+    st.session_state.aircraft_session = aircraft_session
+
+if st.button("Remove Aircraft from Session"):
+    # Remove aircraft information from the session
+    if hasattr(st.session_state, "aircraft_session"):
+        del st.session_state.aircraft_session
+
+# Display saved aircraft information
+if hasattr(st.session_state, "aircraft_session"):
+    st.header("Aircraft in This Session")
+    st.write(st.session_state.aircraft_session)
+
+# Notes Section
+st.header("Notes")
+notes = st.text_area("Add your notes here:")
+if st.button("Save Session"):
+    # Save notes to session state
+    st.session_state.notes = notes
+
+# Display saved notes
+if hasattr(st.session_state, "notes"):
+    st.subheader("Saved Notes")
+    st.write(st.session_state.notes)
+# Payment Schedule
+st.header("Payment Schedule and Capital Cost")
+payment_type = st.radio("Select Payment Type", ["Payment Schedule", "Capital Cost"])
+if payment_type == "Payment Schedule":
+    interest_rate = st.number_input("Interest Rate (%)", 0.0, 100.0, 4.0)
+    payment_period = st.selectbox("Payment Period", ["Weekly", "Monthly", "Yearly"])
+    term_of_loan_months = st.number_input("Term of Loan (Months)", 1, 480, 120)
+    loan_amount = st.number_input("Loan Amount", 0.0, 1000000.0, 200000.0)
+    monthly_lease = st.number_input("Monthly Lease", 0.0, 100000.0, 0.0)
+    # Perform payment schedule calculations here
+
+    st.write("Payment Schedule Calculations:")
+    # Display payment schedule calculations
+else:
+    principal_amount = st.number_input("Principal Amount", 0.0, 1000000.0, 1353.72)
+    interest_amount = st.number_input("Interest Amount", 0.0, 1000000.0, 671.18)
+    # Perform capital cost calculations here
+
+    st.write("Capital Cost Calculations:")
+    # Display capital cost calculations
+
+# Budget By Percentages
+st.header("Budget By Percentages")
+fuel_cost_percentage = st.number_input("Fuel Cost (%)", 0.0, 100.0, 11.33)
+airframe_maintenance_percentage = st.number_input("Airframe Maintenance (%)", 0.0, 100.0, 4.68)
+engine_apu_maintenance_percentage = st.number_input("Engine/APU Maintenance (%)", 0.0, 100.0, 4.68)
+crew_expense_percentage = st.number_input("Crew Expense (%)", 0.0, 100.0, 0.0)
+crew_training_percentage = st.number_input("Crew Training (%)", 0.0, 100.0, 2.82)
+hanger_percentage = st.number_input("Hangar (%)", 0.0, 100.0, 12.70)
+insurance_percentage = st.number_input("Insurance (%)", 0.0, 100.0, 5.26)
+aircraft_miscellaneous_percentage = st.number_input("Aircraft Miscellaneous (%)", 0.0, 100.0, 4.42)
+management_marketing_fee_percentage = st.number_input("Mgmt./Mkting. Fee (%)", 0.0, 100.0, 0.0)
+payment_capital_cost_percentage = st.number_input("Payment/Capital Cost (%)", 0.0, 100.0, 22.86)        
+# Calculate Results
+st.header("Results")
+total_hourly_cost_without_charter = total_fixed_cost_with_without_charter / annual_owner_hours + total_variable_cost_per_hour
+total_hourly_cost_with_charter = total_fixed_cost_with_charter / total_hours + total_variable_cost_per_hour
+avg_depreciation_year_percentage = st.number_input("Avg. Depreciation/Year (%)", 0.0, 100.0, 30.54)
+total_percentages = (
+    fuel_cost_percentage + airframe_maintenance_percentage + engine_apu_maintenance_percentage +
+    crew_expense_percentage + crew_training_percentage + hanger_percentage +
+    insurance_percentage + aircraft_miscellaneous_percentage +
+    management_marketing_fee_percentage + payment_capital_cost_percentage +
+    avg_depreciation_year_percentage
+)
+
+if total_percentages != 100:
+    st.warning("Total percentages do not add up to 100%.")
+
+# Perform budget calculations here
+
+st.write("Budget Calculations:")
+# Display budget calculations
+# Display Results
+st.write(f"Total Hourly Cost (Without Charter): ${total_hourly_cost_without_charter:.2f}")
+st.write(f"Total Hourly Cost (With Charter): ${total_hourly_cost_with_charter:.2f}")
+st.write(f"Total Variable Cost: ${total_variable_cost:.2f}")
+st.write(f"Total Fixed Cost (Without Charter): ${total_fixed_cost_without_charter:.2f}")
+st.write(f"Total Fixed Cost (With Charter): ${total_fixed_cost_with_charter:.2f}")
+
+
+# Add any additional calculations or visualizations as needed
+
+use streamlit library of python and machine learning to solve the
+above codes by creating sidebar for the necessary parameters and 
+adding logo and changing the st.write to st.metric
+=====================================================
+import streamlit as st
+
+# Set page title and icon
+st.set_page_config(
+    page_title="Aircraft Cost Calculator",
+    page_icon="✈️",
+)
+
+# Sidebar
+st.sidebar.image("logo1.jpg", use_container_width=True)
+st.sidebar.title("Parameters")
+
+# General Parameters
+st.sidebar.header("General Parameters")
+annual_owner_hours = st.sidebar.number_input("Annual Owner Hours", 0, 10000, 150)
+annual_charter_hours = st.sidebar.number_input("Annual Charter Hours", 0, 10000, 0)
+fuel_cost_per_gallon = st.sidebar.number_input("Fuel Cost per Gallon", 0.01, 10.00, 4.25)
+net_effective_hourly_charter_rate = st.sidebar.number_input("Net Effective Hourly Charter Rate", 0.0, 10000.0, 0.0)
+total_hours = annual_owner_hours + annual_charter_hours
+
+# Owner Hourly Cost Analysis
+st.sidebar.header("Owner Hourly Cost Analysis")
+fuel_usage_per_hour = st.sidebar.number_input("Fuel Usage (Gallons per Hour)", 0.01, 100.00, 18.90)
+fuel_cost_per_hour = fuel_cost_per_gallon * fuel_usage_per_hour
+airtime_maintenance = st.sidebar.number_input("Airtime Maintenance", 0.0, 10000.0, 33.15)
+engine_apu_maintenance = st.sidebar.number_input("Engine/APU Maintenance", 0.0, 10000.0, 33.13)
+total_maintenance = airtime_maintenance + engine_apu_maintenance
+crew_miscellaneous = st.sidebar.number_input("Crew Miscellaneous", 0.0, 10000.0, 5.00)
+total_variable_cost_per_hour = fuel_cost_per_hour + total_maintenance + crew_miscellaneous
+
+# Total Fixed Costs
+st.sidebar.header("Total Fixed Costs")
+total_fixed_cost_with_without_charter = st.sidebar.number_input("Total Fixed Cost (Without Charter)", 0.0, 1000000.0, 557.04)
+total_fixed_cost_with_charter = st.sidebar.number_input("Total Fixed Cost (With Charter)", 0.0, 1000000.0, 557.04)
+
+# Annual Variable Costs
+st.sidebar.header("Annual Variable Costs")
+fuel_gallons = st.sidebar.number_input("Fuel Gallons", 0.0, 10000.0, 2835.00)
+fuel_cost = st.sidebar.number_input("Fuel Cost", 0.0, 100000.0, 12048.75)
+airframe_maintenance = st.sidebar.number_input("Airframe Maintenance", 0.0, 10000.0, 4972.50)
+engine_apu_maintenance = st.sidebar.number_input("Engine/APU Maintenance", 0.0, 10000.0, 4969.50)
+crew_miscellaneous = st.sidebar.number_input("Crew Miscellaneous", 0.0, 10000.0, 750.00)
+total_variable_cost = fuel_cost + airframe_maintenance + engine_apu_maintenance + crew_miscellaneous
+
+# Annual Fixed Costs
+st.sidebar.header("Annual Fixed Costs")
+crew_expense = st.sidebar.number_input("Crew Expense", 0.0, 10000.0, 0.00)
+crew_training = st.sidebar.number_input("Crew Training", 0.0, 10000.0, 3000.00)
+hangar = st.sidebar.number_input("Hangar", 0.0, 100000.0, 13500.00)
+insurance = st.sidebar.number_input("Insurance", 0.0, 100000.0, 5596.50)
+aircraft_miscellaneous = st.sidebar.number_input("Aircraft Miscellaneous", 0.0, 10000.0, 4700.00)
+management_and_marketing_fee = st.sidebar.number_input("Management and Marketing Fee", 0.0, 10000.0, 0.00)
+payment_and_capital_cost = st.sidebar.number_input("Payment and Capital Cost", 0.0, 100000.0, 24298.83)
+original_aircraft_cost = st.sidebar.number_input("Original Aircraft Cost", 0.0, 1000000.0, 700000.00)
+annual_residual_depreciation_percentage = st.sidebar.number_input("Annual Residual Depreciation (%)", 0.0, 100.0, 5.0)
+term_of_ownership = st.sidebar.number_input("Term of Ownership (Years)", 1, 100, 4)
+average_residual_depreciation_per_year = (annual_residual_depreciation_percentage / 100) * original_aircraft_cost / term_of_ownership
+total_fixed_cost_without_charter = crew_expense + crew_training + hangar + insurance + aircraft_miscellaneous + management_and_marketing_fee + payment_and_capital_cost + average_residual_depreciation_per_year
+total_fixed_cost_with_charter = total_fixed_cost_without_charter
+
+# Charter Revenue and Profit
+st.sidebar.header("Charter Revenue and Profit")
+charter_revenue = st.sidebar.number_input("Charter Revenue", 0.0, 1000000.0, 0.00)
+variable_cost_of_charter = st.sidebar.number_input("Variable Cost of Charter", 0.0, 100000.0, 0.00)
+net_charter_profit_contribution = charter_revenue - variable_cost_of_charter
+
+# Aircraft Information
+st.sidebar.header("Aircraft Information")
+
+# Create a list of aircraft types
+aircraft_types = ["Cirrus SR22T G5GTS", "Other Aircraft Type"]
+# Select an aircraft type
+selected_aircraft = st.sidebar.selectbox("Select Aircraft Type", aircraft_types)
+if selected_aircraft == "Cirrus SR22T G5GTS":
+    # Input elements specific to Cirrus SR22T G5GTS
+    passenger_capacity = st.sidebar.slider("Typical Passenger Capacity", 1, 10, (1, 3))
+    seats_full_range = st.sidebar.slider("Seats Full Range (Nm/Sm)", 500, 1000, (750, 863))
+    normal_cruise_speed = st.sidebar.slider("Normal Cruise Speed (Kts/Mph)", 100, 300, (195.95, 225.53))
+    average_pre_owned_price = st.sidebar.number_input("Average Pre-Owned Price", 0.0, 1000000.0, 705000.00)
+    cost_per_nm = st.sidebar.number_input("Cost Per NM", 0.0, 10.0, 0.77)
+
+# Add functionality to save and remove aircraft
+if st.sidebar.button("Add Aircraft to Session"):
+    # Save aircraft information to a session variable
+    aircraft_session = {
+        "Aircraft Type": selected_aircraft,
+        "Passenger Capacity": passenger_capacity,
+        "Seats Full Range": seats_full_range,
+        "Normal Cruise Speed": normal_cruise_speed,
+        "Average Pre-Owned Price": average_pre_owned_price,
+        "Cost Per NM": cost_per_nm,
+    }
+    st.session_state.aircraft_session = aircraft_session
+
+if st.sidebar.button("Remove Aircraft from Session"):
+    # Remove aircraft information from the session
+    if hasattr(st.session_state, "aircraft_session"):
+        del st.session_state.aircraft_session
+
+# Display saved aircraft information
+if hasattr(st.session_state, "aircraft_session"):
+    st.sidebar.header("Aircraft in This Session")
+    st.sidebar.metric("Aircraft Type", st.session_state.aircraft_session["Aircraft Type"])
+    st.sidebar.metric("Passenger Capacity", st.session_state.aircraft_session["Passenger Capacity"])
+    st.sidebar.metric("Seats Full Range", st.session_state.aircraft_session["Seats Full Range"])
+    st.sidebar.metric("Normal Cruise Speed", st.session_state.aircraft_session["Normal Cruise Speed"])
+    st.sidebar.metric("Average Pre-Owned Price", st.session_state.aircraft_session["Average Pre-Owned Price"])
+    st.sidebar.metric("Cost Per NM", st.session_state.aircraft_session["Cost Per NM"])
+
+# Notes Section
+st.sidebar.header("Notes")
+notes = st.sidebar.text_area("Add your notes here:")
+if st.sidebar.button("Save Session"):
+    # Save notes to session state
+    st.session_state.notes = notes
+
+# Display saved notes
+if hasattr(st.session_state, "notes"):
+    st.sidebar.header("Saved Notes")
+    st.sidebar.write(st.session_state.notes)
+
+# Main content area
+st.title("Aircraft Cost Calculator")
+total_hourly_cost_without_charter=708.65
+total_hourly_cost_with_charter=708.65
+# Display Results
+st.header("Results")
+st.metric("Total Hourly Cost (Without Charter)", total_hourly_cost_without_charter)
+st.metric("Total Hourly Cost (With Charter)",   total_hourly_cost_with_charter)
+st.metric("Total Variable Cost", total_variable_cost)
+st.metric("Total Fixed Cost (Without Charter)", total_fixed_cost_without_charter)
+st.metric("Total Fixed Cost (With Charter)", total_fixed_cost_with_charter)
+
+# Add any additional calculations or visualizations as needed
+put all the necessary parameters inside a dropdown and correct necessary errors
+====================================================
+import streamlit as st
+
+def fuel_cost_per_hour(fuel_cost_per_gallon,fuel_usage_per_hour):   
+    cost=fuel_cost_per_gallon * fuel_usage_per_hour
+    return cost
+def total_maintenance(airtime_maintenance,engine_apu_maintenance):
+    cost_1=airtime_maintenance + engine_apu_maintenance
+    return cost_1
+def total_variable_cost_per_hour(fuel_cost_per_hour,total_maintenance, crew_miscellaneous):
+    cost_2=fuel_cost_per_hour + total_maintenance + crew_miscellaneous
+    return cost_2
+# Set page title and icon
+st.set_page_config(
+    page_title="Aircraft Cost Calculator",
+    page_icon="✈️",
+)
+total_variable_cost=0
+# Sidebar
+st.sidebar.image("logo1.jpg",  caption="My Logo")
+st.sidebar.title("Parameters")
+
+# Dropdown to select the section
+section = st.sidebar.selectbox("Select Section", ["General Parameters", "Owner Hourly Cost Analysis", "Total Fixed Costs", "Annual Variable Costs", "Annual Fixed Costs", "Charter Revenue and Profit", "Aircraft Information"])
+
+# General Parameters
+if section == "General Parameters":
+    st.sidebar.header("General Parameters")
+    annual_owner_hours = st.sidebar.number_input("Annual Owner Hours", 0, 10000, 150)
+    annual_charter_hours = st.sidebar.number_input("Annual Charter Hours", 0, 10000, 0)
+    fuel_cost_per_gallon = st.sidebar.number_input("Fuel Cost per Gallon", 0.01, 10.00, 4.25)
+    net_effective_hourly_charter_rate = st.sidebar.number_input("Net Effective Hourly Charter Rate", 0.0, 10000.0, 0.0)
+    total_hours = annual_owner_hours + annual_charter_hours
+
+# Owner Hourly Cost Analysis
+if section == "Owner Hourly Cost Analysis":
+    st.sidebar.header("Owner Hourly Cost Analysis")
+    fuel_usage_per_hour = st.sidebar.number_input("Fuel Usage (Gallons per Hour)", 0.01, 100.00, 18.90)
+    fuel_cost_per_hour = fuel_cost_per_hour
+    airtime_maintenance = st.sidebar.number_input("Airtime Maintenance", 0.0, 10000.0, 33.15)
+    engine_apu_maintenance = st.sidebar.number_input("Engine/APU Maintenance", 0.0, 10000.0, 33.13)
+    total_maintenance = total_maintenance
+    crew_miscellaneous = st.sidebar.number_input("Crew Miscellaneous", 0.0, 10000.0, 5.00)
+    total_variable_cost_per_hour = total_variable_cost_per_hour
+
+# Total Fixed Costs
+if section == "Total Fixed Costs":
+    st.sidebar.header("Total Fixed Costs")
+    total_fixed_cost_with_without_charter = st.sidebar.number_input("Total Fixed Cost (Without Charter)", 0.0, 1000000.0, 557.04)
+    total_fixed_cost_with_charter = st.sidebar.number_input("Total Fixed Cost (With Charter)", 0.0, 1000000.0, 557.04)
+
+# Annual Variable Costs
+if section == "Annual Variable Costs":
+    st.sidebar.header("Annual Variable Costs")
+    fuel_gallons = st.sidebar.number_input("Fuel Gallons", 0.0, 10000.0, 2835.00)
+    fuel_cost = st.sidebar.number_input("Fuel Cost", 0.0, 100000.0, 12048.75)
+    airframe_maintenance = st.sidebar.number_input("Airframe Maintenance", 0.0, 10000.0, 4972.50)
+    engine_apu_maintenance = st.sidebar.number_input("Engine/APU Maintenance", 0.0, 10000.0, 4969.50)
+    crew_miscellaneous = st.sidebar.number_input("Crew Miscellaneous", 0.0, 10000.0, 750.00)
+    total_variable_cost = fuel_cost + airframe_maintenance + engine_apu_maintenance + crew_miscellaneous
+
+# Annual Fixed Costs
+if section == "Annual Fixed Costs":
+    st.sidebar.header("Annual Fixed Costs")
+    crew_expense = st.sidebar.number_input("Crew Expense", 0.0, 10000.0, 0.00)
+    crew_training = st.sidebar.number_input("Crew Training", 0.0, 10000.0, 3000.00)
+    hangar = st.sidebar.number_input("Hangar", 0.0, 100000.0, 13500.00)
+    insurance = st.sidebar.number_input("Insurance", 0.0, 100000.0, 5596.50)
+    aircraft_miscellaneous = st.sidebar.number_input("Aircraft Miscellaneous", 0.0, 10000.0, 4700.00)
+    management_and_marketing_fee = st.sidebar.number_input("Management and Marketing Fee", 0.0, 10000.0, 0.00)
+    payment_and_capital_cost = st.sidebar.number_input("Payment and Capital Cost", 0.0, 100000.0, 24298.83)
+    original_aircraft_cost = st.sidebar.number_input("Original Aircraft Cost", 0.0, 1000000.0, 700000.00)
+    annual_residual_depreciation_percentage = st.sidebar.number_input("Annual Residual Depreciation (%)", 0.0, 100.0, 5.0)
+    term_of_ownership = st.sidebar.number_input("Term of Ownership (Years)", 1, 100, 4)
+    average_residual_depreciation_per_year = (annual_residual_depreciation_percentage / 100) * original_aircraft_cost / term_of_ownership
+    total_fixed_cost_without_charter = crew_expense + crew_training + hangar + insurance + aircraft_miscellaneous + management_and_marketing_fee + payment_and_capital_cost + average_residual_depreciation_per_year
+    total_fixed_cost_with_charter = total_fixed_cost_without_charter
+
+# Charter Revenue and Profit
+if section == "Charter Revenue and Profit":
+    st.sidebar.header("Charter Revenue and Profit")
+    charter_revenue = st.sidebar.number_input("Charter Revenue", 0.0, 1000000.0, 0.00)
+    variable_cost_of_charter = st.sidebar.number_input("Variable Cost of Charter", 0.0, 100000.0, 0.00)
+    net_charter_profit_contribution = charter_revenue - variable_cost_of_charter
+
+# Aircraft Information
+if section == "Aircraft Information":
+    st.sidebar.header("Aircraft Information")
+    # Create a list of aircraft types
+    aircraft_types = ["Cirrus SR22T G5GTS", "Other Aircraft Type"]
+    # Select an aircraft type
+    selected_aircraft = st.sidebar.selectbox("Select Aircraft Type", aircraft_types)
+    if selected_aircraft == "Cirrus SR22T G5GTS":
+        # Input elements specific to Cirrus SR22T G5GTS
+        passenger_capacity = st.sidebar.slider("Typical Passenger Capacity", 1, 10, (1, 3))
+        seats_full_range = st.sidebar.slider("Seats Full Range (Nm/Sm)", 500, 1000, (750, 863))
+        normal_cruise_speed = st.sidebar.slider("Normal Cruise Speed (Kts/Mph)", 100.0, 300.0, (195.95, 225.53))
+        average_pre_owned_price = st.sidebar.number_input("Average Pre-Owned Price", 0.0, 1000000.0, 705000.00)
+        cost_per_nm = st.sidebar.number_input("Cost Per NM", 0.0, 10.0, 0.77)
+
+# Add functionality to save and remove aircraft
+if st.sidebar.button("Add Aircraft to Session"):
+    # Save aircraft information to a session variable
+    aircraft_session = {
+        "Aircraft Type": selected_aircraft,
+        "Passenger Capacity": passenger_capacity,
+        "Seats Full Range": seats_full_range,
+        "Normal Cruise Speed": normal_cruise_speed,
+        "Average Pre-Owned Price": average_pre_owned_price,
+        "Cost Per NM": cost_per_nm,
+    }
+    st.session_state.aircraft_session = aircraft_session
+
+if st.sidebar.button("Remove Aircraft from Session"):
+    # Remove aircraft information from the session
+    if hasattr(st.session_state, "aircraft_session"):
+        del st.session_state.aircraft_session
+
+# Display saved aircraft information
+if hasattr(st.session_state, "aircraft_session"):
+    st.sidebar.header("Aircraft in This Session")
+    st.sidebar.metric("Aircraft Type", st.session_state.aircraft_session["Aircraft Type"])
+    st.sidebar.metric("Passenger Capacity", st.session_state.aircraft_session["Passenger Capacity"])
+    st.sidebar.metric("Seats Full Range", st.session_state.aircraft_session["Seats Full Range"])
+    st.sidebar.metric("Normal Cruise Speed", st.session_state.aircraft_session["Normal Cruise Speed"])
+    st.sidebar.metric("Average Pre-Owned Price", st.session_state.aircraft_session["Average Pre-Owned Price"])
+    st.sidebar.metric("Cost Per NM", st.session_state.aircraft_session["Cost Per NM"])
+
+# Notes Section
+st.sidebar.header("Notes")
+notes = st.sidebar.text_area("Add your notes here:")
+if st.sidebar.button("Save Session"):
+    # Save notes to session state
+    st.session_state.notes = notes
+
+# Display saved notes
+if hasattr(st.session_state, "notes"):
+    st.sidebar.header("Saved Notes")
+    st.sidebar.write(st.session_state.notes)
+
+# Main content area
+st.title("Aircraft Cost Calculator")
+total_hourly_cost_without_charter = 708.65
+total_hourly_cost_with_charter = 708.65
+total_variable_cost=0
+total_fixed_cost_without_charter=0
+total_fixed_cost_with_charter=0
+# Display Results
+st.header("Results")
+st.metric("Total Hourly Cost (Without Charter)", total_hourly_cost_without_charter)
+st.metric("Total Hourly Cost (With Charter)",   total_hourly_cost_with_charter)
+st.metric("Total Variable Cost", total_variable_cost)
+st.metric("Total Fixed Cost (Without Charter)", total_fixed_cost_without_charter)
+st.metric("Total Fixed Cost (With Charter)", total_fixed_cost_with_charter)
+
+change the above codes to dash app with dash library of python and machine learning and divide both input and ouput values into
+two columns and put all the input variables in dropdown with css logo above, also codes the functions for all input variables  and create calculation button 
+===========================================
+import streamlit as st
+
+# Dummy username and password for demonstration
+dummy_username = "user"
+dummy_password = "password"
+
+# Create a Streamlit app
+st.title("Login Page")
+
+# Sidebar
+st.sidebar.header("Navigation")
+selected_page = st.sidebar.radio("Select a page", ["Login", "Reset Password"])
+
+if selected_page == "Login":
+    st.header("Login")
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+
+    if st.button("Login"):
+        if username == dummy_username and password == dummy_password:
+            st.success("Logged in as {}".format(username))
+        else:
+            st.error("Invalid username or password")
+
+elif selected_page == "Reset Password":
+    st.header("Reset Password")
+    username_reset = st.text_input("Username")
+    if st.button("Reset Password"):
+        # Placeholder for password reset logic (not implemented in this example)
+        st.success("Password reset instructions sent to {}'s email".format(username_reset))
+===========================
+with col3:
+    st.header("Session and Notes")
+    if st.button("Add Aircraft to Session"):
+        # Save aircraft information to a session variable
+        aircraft_session = {
+            "Aircraft Type": selected_aircraft,
+            "Passenger Capacity": passenger_capacity,
+            "Seats Full Range": seats_full_range,
+            "Normal Cruise Speed": normal_cruise_speed,
+            "Average Pre-Owned Price": average_pre_owned_price,
+            "Cost Per NM": cost_per_nm,
+        }
+===========================================
+import streamlit as st
+
+# Set page title and icon
+st.set_page_config(
+    page_title="Aircraft Cost Calculator",
+    page_icon="✈️",
+)
+# Set the background color using custom CSS
+background_color = """
+<style>
+body {
+    background-color: blue; /* Replace with your desired background color */
+}
+</style>
+"""
+
+# Render the custom CSS
+st.markdown(background_color, unsafe_allow_html=True)
+
+# Add content to your Streamlit app
+#import streamlit as st
+
+
+
+# Add a title to the top of your app
+st.title("Aircraft Cost Calculator")
+
+def fuel_cost_per_hour(fuel_cost_per_gallon,fuel_usage_per_hour):   
+    cost=fuel_cost_per_gallon * fuel_usage_per_hour
+    return cost
+
+def total_maintenance(airtime_maintenance,engine_apu_maintenance):
+    cost_1=airtime_maintenance + engine_apu_maintenance
+    return cost_1
+
+def total_variable_cost_per_hour(fuel_cost_per_hour,total_maintenance, crew_miscellaneous):
+    cost_2=fuel_cost_per_hour + total_maintenance + crew_miscellaneous
+    return cost_2
+
+# Set page title and icon
+#st.set_page_config(
+    page_title="Aircraft Cost Calculator",
+    page_icon="✈️",
+#)
+
+# Create three columns
+col1, col2, col3 = st.columns(3)
+
+# Sidebar
+with col1:
+    st.sidebar.image("logo1.jpg", caption="My Logo")
+    st.sidebar.title("Parameters")
+
+    # Dropdown to select the section
+    section = st.sidebar.selectbox("Select Section", ["General Parameters", "Owner Hourly Cost Analysis","Budget By Percentages", "Total Fixed Costs", "Annual Variable Costs", "Annual Fixed Costs", "Charter Revenue and Profit", "Aircraft Information"])
+
+# ... (Your existing code)
+
+# Budget By Percentages
+st.sidebar.header("Budget By Percentages")
+
+# Initialize budget items with default percentages
+budget_items = {
+    "Fuel Cost (%)": 11.33,
+    "Airframe Maintenance (%)": 4.68,
+    "Engine/APU Maintenance (%)": 4.68,
+    "Crew Expense (%)": 0.00,
+    "Crew Training (%)": 2.82,
+    "Hangar (%)": 12.70,
+    "Insurance (%)": 5.26,
+    "Aircraft Miscellaneous (%)": 4.42,
+    "Management/Marketing Fee (%)": 0.00,
+    "Payment/Capital Cost (%)": 22.86,
+    "Average Depreciation/Year (%)": 30.54,
+}
+
+#st.sidebar.header("Budget Percentages")
+
+# Create sliders in the sidebar to adjust percentages
+for item, value in budget_items.items():
+    budget_items[item] = st.sidebar.slider(item, 0.0, 100.0, value)
+
+# Calculate and display total percentages
+total_percentage = sum(budget_items.values())
+st.sidebar.subheader("Total Percentage: {:.2f}%".format(total_percentage))
+#This code adds budget percentage sliders to the sidebar and calculates and displays the total percentage. You can adjust the percentages using the sliders in the sidebar, and the total percentage will be updated accordingly. Make sure to integrate this code appropriately into your existing Streamlit app structure.
+
+
+
+
+
+
+General Parameters
+Annual Owner Hours=1000
+Annual Charter Hours=10000
+Fuel Cost per Gallon=10.00
+Net Effective Hourly Charter Rate=1000.0
+if section == "General Parameters":
+    with col2:
+        st.header("General Parameters")
+        annual_owner_hours = st.number_input("Annual Owner Hours", 0, 10000, 150)
+        annual_charter_hours = st.number_input("Annual Charter Hours", 0, 10000, 0)
+        fuel_cost_per_gallon = st.number_input("Fuel Cost per Gallon", 0.01, 10.00, 4.25)
+        net_effective_hourly_charter_rate = st.number_input("Net Effective Hourly Charter Rate", 0.0, 10000.0, 0.0)
+        total_hours = annual_owner_hours + annual_charter_hours
+
+Fuel Usage (Gallons per Hour)=100.00
+Airframe Maintenance=10000.0
+Crew Miscellaneous=10000.0
+
+Owner Hourly Cost Analysis
+fuel_cost_per_gallon=4.25
+if section == "Owner Hourly Cost Analysis":
+    with col2:
+        st.header("Owner Hourly Cost Analysis")
+        fuel_usage_per_hour = st.number_input("Fuel Usage (Gallons per Hour)", 0.01, 100.00, 18.90)
+        fuel_cost_per_hour = fuel_cost_per_hour(fuel_cost_per_gallon, fuel_usage_per_hour)
+        airtime_maintenance = st.number_input("Airframe Maintenance", 0.0, 10000.0, 33.15)
+        engine_apu_maintenance = st.number_input("Engine/APU Maintenance", 0.0, 10000.0, 33.13)
+        total_maintenance_cost = total_maintenance(airtime_maintenance, engine_apu_maintenance)
+        crew_miscellaneous = st.number_input("Crew Miscellaneous", 0.0, 10000.0, 5.00)
+        total_variable_cost_per_hour = total_variable_cost_per_hour(fuel_cost_per_hour, total_maintenance_cost, crew_miscellaneous)
+
+Total Fixed Cost (Without Charter)=1000000.0
+Total Fixed Cost (With Charter)=1000000.0
+Total Fixed Costs
+if section == "Total Fixed Costs":
+    with col2:
+        st.header("Total Fixed Costs")
+        total_fixed_cost_with_without_charter = st.number_input("Total Fixed Cost (Without Charter)", 0.0, 1000000.0, 557.04)
+        total_fixed_cost_with_charter = st.number_input("Total Fixed Cost (With Charter)", 0.0, 1000000.0, 557.04)
+
+
+Fuel Gallons=10000.0
+Fuel Cost=100000.0
+Airframe Maintenance=10000.0
+Engine/APU Maintenance=10000.0
+Crew Miscellaneous=10000.0
+
+Annual Variable Costs
+if section == "Annual Variable Costs":
+    with col2:
+        st.header("Annual Variable Costs")
+        fuel_gallons = st.number_input("Fuel Gallons", 0.0, 10000.0, 2835.00)
+        fuel_cost = st.number_input("Fuel Cost", 0.0, 100000.0, 12048.75)
+        airframe_maintenance = st.number_input("Airframe Maintenance", 0.0, 10000.0, 4972.50)
+        engine_apu_maintenance = st.number_input("Engine/APU Maintenance", 0.0, 10000.0, 4969.50)
+        crew_miscellaneous = st.number_input("Crew Miscellaneous", 0.0, 10000.0, 750.00)
+        total_variable_cost = fuel_cost + airframe_maintenance + engine_apu_maintenance + crew_miscellaneous
+
+Crew Expense=10000.0
+Crew Training=10000.0
+Hangar=100000.0
+Insurance=100000.0
+Aircraft Miscellaneous=10000.0
+Management and Marketing Fee=10000.0
+Payment and Capital Cost=100000.0
+Original Aircraft Cost=1000000.0
+Annual Residual Depreciation (%)=100.0
+Term of Ownership (Years)=100
+
+Annual Fixed Costs
+if section == "Annual Fixed Costs":
+    with col2:
+        st.header("Annual Fixed Costs")
+        crew_expense = st.number_input("Crew Expense", 0.0, 10000.0, 0.00)
+        crew_training = st.number_input("Crew Training", 0.0, 10000.0, 3000.00)
+        hangar = st.number_input("Hangar", 0.0, 100000.0, 13500.00)
+        insurance = st.number_input("Insurance", 0.0, 100000.0, 5596.50)
+        aircraft_miscellaneous = st.number_input("Aircraft Miscellaneous", 0.0, 10000.0, 4700.00)
+        management_and_marketing_fee = st.number_input("Management and Marketing Fee", 0.0, 10000.0, 0.00)
+        payment_and_capital_cost = st.number_input("Payment and Capital Cost", 0.0, 100000.0, 24298.83)
+        original_aircraft_cost = st.number_input("Original Aircraft Cost", 0.0, 1000000.0, 700000.00)
+        annual_residual_depreciation_percentage = st.number_input("Annual Residual Depreciation (%)", 0.0, 100.0, 5.0)
+        term_of_ownership = st.number_input("Term of Ownership (Years)", 1, 100, 4)
+        average_residual_depreciation_per_year = (annual_residual_depreciation_percentage / 100) * original_aircraft_cost / term_of_ownership
+        total_fixed_cost_without_charter = crew_expense + crew_training + hangar + insurance + aircraft_miscellaneous + management_and_marketing_fee + payment_and_capital_cost + average_residual_depreciation_per_year
+        total_fixed_cost_with_charter = total_fixed_cost_without_charter
+
+
+
+
+Charter Revenue=1000000.0
+Variable Cost of Charter=100000.0
+# Charter Revenue and Profit
+if section == "Charter Revenue and Profit":
+    with col2:
+        st.header("Charter Revenue and Profit")
+        charter_revenue = st.number_input("Charter Revenue", 0.0, 1000000.0, 0.00)
+        variable_cost_of_charter = st.number_input("Variable Cost of Charter", 0.0, 100000.0, 0.00)
+        net_charter_profit_contribution = charter_revenue - variable_cost_of_charter
+
+Aircraft Information
+if section == "Aircraft Information":
+    with col2:
+        st.header("Aircraft Information")
+        Create a list of aircraft types
+        aircraft_types = ["Cirrus SR22T G5GTS", "Other Aircraft Type"]
+         Select an aircraft type
+        selected_aircraft = st.selectbox("Select Aircraft Type", aircraft_types)
+        if selected_aircraft == "Cirrus SR22T G5GTS":
+             Input elements specific to Cirrus SR22T G5GTS
+Typical Passenger Capacity=1  to 10
+Seats Full Range (Nm/Sm)=500 to 1000
+Normal Cruise Speed (Kts/Mph)=100.0 to 300.0
+Average Pre-Owned Price=1000000.0
+Cost Per NM=10.0
+            passenger_capacity = st.slider("Typical Passenger Capacity", 1, 10, (1, 3))
+            seats_full_range = st.slider("Seats Full Range (Nm/Sm)", 500, 1000, (750, 863))
+            normal_cruise_speed = st.slider("Normal Cruise Speed (Kts/Mph)", 100.0, 300.0, (195.95, 225.53))
+            average_pre_owned_price = st.number_input("Average Pre-Owned Price", 0.0, 1000000.0, 705000.00)
+            cost_per_nm = st.number_input("Cost Per NM", 0.0, 10.0, 0.77)
+
+# Add functionality to save and remove aircraft
+with col3:
+    st.header("Session and Notes")
+    if st.button("Add Aircraft to Session"):
+        # Save aircraft information to a session variable
+        aircraft_session = {
+            "Aircraft Type": selected_aircraft,
+            "Passenger Capacity": passenger_capacity,
+            "Seats Full Range": seats_full_range,
+            "Normal Cruise Speed": normal_cruise_speed,
+            "Average Pre-Owned Price": average_pre_owned_price,
+            "Cost Per NM": cost_per_nm,
+        }
+        st.session_state.aircraft_session = aircraft_session
+
+    if st.button("Remove Aircraft from Session"):
+        # Remove aircraft information from the session
+        if hasattr(st.session_state, "aircraft_session"):
+            del st.session_state.aircraft_session
+
+    Display saved aircraft information
+    if hasattr(st.session_state, "aircraft_session"):
+        st.subheader("Aircraft in This Session")
+        st.text("Aircraft Type: " + st.session_state.aircraft_session["Aircraft Type"])
+        st.text("Passenger Capacity: " + str(st.session_state.aircraft_session["Passenger Capacity"]))
+        st.text("Seats Full Range: " + str(st.session_state.aircraft_session["Seats Full Range"]))
+        st.text("Normal Cruise Speed: " + str(st.session_state.aircraft_session["Normal Cruise Speed"]))
+        st.text("Average Pre-Owned Price: " + str(st.session_state.aircraft_session["Average Pre-Owned Price"]))
+        st.text("Cost Per NM: " + str(st.session_state.aircraft_session["Cost Per NM"]))
+
+    st.subheader("Notes")
+    notes = st.text_area("Add your notes here:")
+    if st.button("Save Session"):
+        # Save notes to session state
+        st.session_state.notes = notes
+
+    Display saved notes
+    if hasattr(st.session_state, "notes"):
+        st.subheader("Saved Notes")
+        st.text(st.session_state.notes)
+
+Display Results
+
+    st.title(" Aircraft Calculator Dashboard")
+total_hourly_cost_without_charter = 708.65
+total_hourly_cost_with_charter = 708.65
+total_variable_cost = 151.61
+total_fixed_cost_without_charter = 557.04
+total_fixed_cost_with_charter = 557.04
+
+with col1:
+    st.header("Results")
+    st.metric("Total Hourly Cost (Without Charter)", total_hourly_cost_without_charter)
+    st.metric("Total Hourly Cost (With Charter)", total_hourly_cost_with_charter)
+    st.metric("Total Variable Cost", total_variable_cost)
+    st.metric("Total Fixed Cost (Without Charter)", total_fixed_cost_without_charter)
+    st.metric("Total Fixed Cost (With Charter)", total_fixed_cost_with_charter)
+rewrite the codes using dash library of python and machine learning add calculation button to calculate the following
+ total_fixed_cost_without_charter,
+ total_hours,
+total_variable_cost,
+total_fixed_cost_with_charter and should be aligned neatly
+============================================
+				
+Operating Costs (/hour)		Results		
+	Fuel	 $38.00 		
+	Oil Changes/Oil Adds	 $3.13 		
+	Engine Reserve	 $16.67 	No	Include in Calculation?
+	Total Variable Costs per hour	 $41.13 		
+				
+Ownership Costs (/year)				
+	Insurance	 $1,200.00 		
+	Hanger/Tiedown	 $600.00 		
+	Annual Inspection	$1,500 		
+	Avionics Database Subscriptions	 $500.00 		
+	Annual Loan Payment	 $3,090.50 		
+	Annual Taxes and Registration	 $255.00 		
+	Total Fixed Cost Per Year	 $7,145.50 		
+	Fixed Cost Per Month	 $595.46 		
+				
+	 Rental Cost/HR 	 $135.00 		
+	 Break Even Hours 	 77 		
+	 Total Cost to Breakeven 	 $10,312.12 		
+				
+	How many hours do you intend to fly this year?	77		
+	Cost Per Hour To Fly	 $133.92 		
+	Cost to Fly those Hours	 $10,312.12 		
+	Money Saved or Lost by Buying	$82.88 		
+
+
+
+
